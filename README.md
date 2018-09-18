@@ -2,7 +2,7 @@
 Projeto de web service, projeto com python 3.7 e django 2.1.
 -------------------------------------------------------------------------------------------
 # Como usar
-pra começar crie uma virtualenv
+para começar crie uma virtualenv
 
 Exemplo:
 
