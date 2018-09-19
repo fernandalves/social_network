@@ -31,3 +31,19 @@ class Publicacao(models.Model):
 
     def __str__(self):
         return "%s: %s" % (self.usuario, self.mensagem)
+
+
+class Grupo(models.Model):
+    class Meta:
+        verbose_name = 'Grupo'
+        verbose_name_plural = 'Grupos'
+        ordering = ('tema', )
+
+    criador = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
+
+    tema = models.CharField(u'Titulo do Grupo',max_length=25, blank=False)
+    dt_criacao = models.DateTimeField(u'Data de criação do grupo', auto_now_add=True)
+    #adicionar outros users
+
+    def __str__(self):
+        return self.tema

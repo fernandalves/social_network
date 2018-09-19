@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Publicacao, Categoria
+from .models import Publicacao, Categoria, Grupo
 
 @admin.register(Categoria)
 class Categoria_Admin(admin.ModelAdmin):
@@ -27,6 +27,23 @@ class Publicacao_Admin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ('dt_criacao', 'dt_atualizacao', 'slug',)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.usuario = request.user
+        super().save_model(request, obj, form, change)
+
+@admin.register(Grupo)
+class Grupo_Admin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('tema',)
+        }),
+        ("outros", {
+            'fields': (('dt_criacao', 'criador', ), )
+        }),
+    )
+    readonly_fields = ('dt_criacao', 'criador',)
 
     def save_model(self, request, obj, form, change):
         if not change:
