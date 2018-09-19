@@ -35,17 +35,18 @@ class Publicacao_Admin(admin.ModelAdmin):
 
 @admin.register(Grupo)
 class Grupo_Admin(admin.ModelAdmin):
+    list_filter = ('criador', 'tema',)
     fieldsets = (
         (None, {
             'fields': ('tema',)
         }),
         ("outros", {
-            'fields': (('dt_criacao', 'criador', ), )
+            'fields': (('dt_criacao', ), )
         }),
     )
-    readonly_fields = ('dt_criacao', 'criador',)
+    readonly_fields = ('dt_criacao',)
 
     def save_model(self, request, obj, form, change):
         if not change:
-            obj.usuario = request.user
+            obj.criador = request.user
         super().save_model(request, obj, form, change)
