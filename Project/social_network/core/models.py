@@ -1,6 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Usuario(models.Model):
+    class Meta:
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
+
+    email = models.CharField(u'Mensagem', max_length=255)
+    aniversario = models.DateField(u'Aniversário')
+    estado = models.CharField(u'Estado', max_length=255)
+    cidade = models.CharField(u'Cidade', max_length=255)
+    relacionamento = models.CharField(u'Mensagem', max_length=255)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class Categoria(models.Model):
     class Meta:
         verbose_name = "Categoria"
@@ -47,3 +60,12 @@ class Grupo(models.Model):
 
     def __str__(self):
         return self.tema
+
+    class Comentario(models.Model):
+        class Meta:
+            verbose_name = 'Comentário'
+            verbose_name_plural = 'Comentários'
+
+        menssagem = models.CharField(u'Mensagem', max_length=255)
+        tipo = models.CharField(u'Mensagem', max_length=255)
+        dt_criacao = models.DateTimeField(verbose_name="Criado em", auto_now_add=True)

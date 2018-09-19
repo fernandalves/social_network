@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Publicacao, Categoria, Grupo
 
+@admin.register(Comentario)
+@admin.register(Usuario)
+
 @admin.register(Categoria)
 class Categoria_Admin(admin.ModelAdmin):
     fieldsets = (
