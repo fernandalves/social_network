@@ -1,7 +1,24 @@
 from django.contrib import admin
-from .models import Publicacao, Categoria, Grupo
+from .models import Publicacao, Categoria, Grupo, Comentario, Usuario
 
 @admin.register(Comentario)
+class Comentario_admin(admin.ModelAdmin):
+    list_filter = ('menssagem', 'tipo', 'publicacao',)
+    fieldsets = (
+        (None, {
+            'fields': ('tipo', 'menssagem', 'publicacao',)
+        }),
+        ("outros", {
+            'fields': (('dt_criacao',),)
+        }),
+    )
+    readonly_fields = ('dt_criacao',)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.criador = request.user
+        super().save_model(request, obj, form, change)
+
 @admin.register(Usuario)
 
 @admin.register(Categoria)

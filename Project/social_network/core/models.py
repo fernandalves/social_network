@@ -61,11 +61,13 @@ class Grupo(models.Model):
     def __str__(self):
         return self.tema
 
-    class Comentario(models.Model):
-        class Meta:
-            verbose_name = 'Comentário'
-            verbose_name_plural = 'Comentários'
 
-        menssagem = models.CharField(u'Mensagem', max_length=255)
-        tipo = models.CharField(u'Mensagem', max_length=255)
-        dt_criacao = models.DateTimeField(verbose_name="Criado em", auto_now_add=True)
+class Comentario(models.Model):
+    class Meta:
+        verbose_name = 'Comentário'
+        verbose_name_plural = 'Comentários'
+
+    menssagem = models.CharField(u'Mensagem', max_length=255)
+    tipo = models.CharField(u'Tipo', max_length=255)
+    publicacao = models.ForeignKey(Publicacao, blank=True, on_delete=models.CASCADE)
+    dt_criacao = models.DateTimeField(verbose_name="Criado em", auto_now_add=True)
